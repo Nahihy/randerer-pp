@@ -8,13 +8,6 @@
   outputs = inputs: let
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
 
-    loadedPkgs = file: import file { inherit pkgs; };
-    loadedPkgFiles = builtins.readDir ./flakeAssets/pkgs;
-    shellPkgs = builtins.concatLists (
-      map (f: loadedPkgs ./flakeAssets/pkgs/${f})
-          (builtins.filter (f: loadedPkgFiles.${f} == "regular")
-                           (builtins.attrNames loadedPkgFiles))    
-    );
     neovim = inputs.nvf.lib.neovimConfiguration {
       inherit pkgs;
       modules = [
@@ -44,6 +37,8 @@
         libXcursor
         libXi
         libXxf86vm
+        zlib
+        assimp
         neovim.neovim
       ];
 

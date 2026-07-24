@@ -8,31 +8,35 @@
 #include <initializer_list>
 #include <vector>
 
-class Sprite {
+namespace rndr {
 
-  public:
-    std::vector<Texture> textures;
-    Shader shader;
-    BufferSet bufferSet;
+  class Sprite {
+
+    public:
+      std::vector<Texture> textures;
+      rndr::Shader shader;
+      rndr::BufferSet bufferSet;
 
 
-    Sprite(Shader shader, BufferSet bufferSet = BufferSet(), std::initializer_list<Texture> textures = {})
-    : shader(shader), bufferSet(bufferSet), textures(textures) {}
+      Sprite(rndr::Shader shader, rndr::BufferSet bufferSet = rndr::BufferSet(), std::initializer_list<Texture> textures = {})
+      : shader(shader), bufferSet(bufferSet), textures(textures) {}
 
-    void draw() const {
-      this->shader.bind();
-      for(const Texture& tex : this->textures) tex.bind();
-      this->bufferSet.draw();
-    }
+      void draw() const {
+        this->shader.bind();
+        for(const rndr::Texture& tex : this->textures) tex.bind();
+        this->bufferSet.draw();
+      }
 
-    void drawNOBIND() const {
-      this->bufferSet.drawNOBIND();
-    }
+      void drawNOBIND() const {
+        this->bufferSet.drawNOBIND();
+      }
 
-    void bind() const {
-      this->shader.bind();
-      for(const Texture& tex : this->textures) tex.bind();
-      this->bufferSet.bind();
-    }
+      void bind() const {
+        this->shader.bind();
+        for(const rndr::Texture& tex : this->textures) tex.bind();
+        this->bufferSet.bind();
+      }
 
-};
+  };
+
+}

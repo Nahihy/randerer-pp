@@ -34,4 +34,8 @@ namespace rndr {
     return 0;
   }
 
+  void inline closeRandererSystem() {
+    glfwTerminate();  
+  }
+
 }
